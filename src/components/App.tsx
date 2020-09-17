@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Todo, fetchTodos } from "../actions";
+import { StoreState } from "../reducers";
 
 interface AppProps {
-  color?: string;
+  todos: Todo[];
+  fetchTodos(): any;
 }
 
 // Functional Component typing
@@ -9,26 +13,16 @@ interface AppProps {
 //   return <div>{props.color}</div>;
 // };
 
-class App extends Component<AppProps> {
-  state = { counter: 0 };
-
-  onPlus = (): void => {
-    this.setState({ counter: this.state.counter + 1 });
-  };
-
-  onMinus = (): void => {
-    this.setState({ counter: this.state.counter - 1 });
-  };
-
+class _App extends Component<AppProps> {
   render() {
-    return (
-      <div>
-        <button onClick={this.onPlus}> + </button>
-        <button onClick={this.onMinus}> - </button>
-        {this.state.counter}
-      </div>
-    );
+    return <div>Hi!</div>;
   }
 }
 
-export default App;
+const mapStateToProps = ({ todos }: StoreState): { todos: Todo[] } => {
+  return { todos };
+};
+
+const withConnect = connect(mapStateToProps, { fetchTodos });
+
+export const App = withConnect(_App);
